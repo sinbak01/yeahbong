@@ -394,39 +394,47 @@
   </script>
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCmbV0X3SSz00h4CCmX5G2bQ2EaRizN3j+9JryH5t1KjHq4Z2Z/Z/uEwG5w3" crossorigin="anonymous"></script>
   <script>
-    // 카카오 SDK 초기화
-    Kakao.init('a6c9b65da65b6eade0ca7baac41ac5e2');
-
     function shareKakao() {
-      Kakao.Share.sendDefault({
-        objectType: 'feed',
-        content: {
-          title: '이성봉 ♥ 신예림 결혼합니다',
-          description: '2026. 10. 9. 소중한 분을 초대합니다',
-          imageUrl: 'https://sinbak01.github.io/yeahbong/images/main.jpg',
-          link: {
-            mobileWebUrl: 'https://sinbak01.github.io/yeahbong/',
-            webUrl: 'https://sinbak01.github.io/yeahbong/',
-          },
-        },
-        buttons: [
-          {
-            title: '청첩장 보기',
+      try {
+        // 중복 초기화 방지 및 안전 장치
+        if (!Kakao.isInitialized()) {
+          Kakao.init('a6c9b65da65b6eade0ca7baac41ac5e2');
+        }
+        
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: '이성봉 ♥ 신예림 결혼합니다',
+            description: '2026. 10. 9. 소중한 분을 초대합니다',
+            imageUrl: 'https://sinbak01.github.io/yeahbong/images/main.jpg',
             link: {
               mobileWebUrl: 'https://sinbak01.github.io/yeahbong/',
               webUrl: 'https://sinbak01.github.io/yeahbong/',
             },
           },
-          {
-            title: '네비게이션',
-            link: {
-              mobileWebUrl: 'https://map.kakao.com/link/search/더믹스드원 비엔날레',
-              webUrl: 'https://map.kakao.com/link/search/더믹스드원 비엔날레',
+          buttons: [
+            {
+              title: '청첩장 보기',
+              link: {
+                mobileWebUrl: 'https://sinbak01.github.io/yeahbong/',
+                webUrl: 'https://sinbak01.github.io/yeahbong/',
+              },
             },
-          },
-        ],
-      });
+            {
+              title: '네비게이션',
+              link: {
+                mobileWebUrl: 'https://map.kakao.com/link/search/더믹스드원 비엔날레',
+                webUrl: 'https://map.kakao.com/link/search/더믹스드원 비엔날레',
+              },
+            },
+          ],
+        });
+      } catch (error) {
+        // 실패 시 화면에 팝업 띄우기
+        alert('카카오 공유 연결에 실패했습니다: ' + error.message);
+      }
     }
+  </script>
   </script>
 </body>
 </html>
