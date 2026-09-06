@@ -392,15 +392,22 @@
       });
     }
   </script>
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCmbV0X3SSz00h4CCmX5G2bQ2EaRizN3j+9JryH5t1KjHq4Z2Z/Z/uEwG5w3" crossorigin="anonymous"></script>
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"></script>
   <script>
     function shareKakao() {
       try {
-        // 중복 초기화 방지 및 안전 장치
+        // 카카오 파일이 정상적으로 안 불러와졌을 때의 알림
+        if (!window.Kakao) {
+          alert('카카오톡 기능을 불러오지 못했습니다. 브라우저를 새로고침 해주세요.');
+          return;
+        }
+
+        // 중복 실행 방지 및 안전한 초기화
         if (!Kakao.isInitialized()) {
           Kakao.init('a6c9b65da65b6eade0ca7baac41ac5e2');
         }
         
+        // 카카오톡 공유하기 실행
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
@@ -430,11 +437,10 @@
           ],
         });
       } catch (error) {
-        // 실패 시 화면에 팝업 띄우기
-        alert('카카오 공유 연결에 실패했습니다: ' + error.message);
+        alert('카카오 공유 에러: ' + error.message);
       }
     }
   </script>
-  </script>
+
 </body>
 </html>
