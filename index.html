@@ -260,7 +260,13 @@
 
   </div>
   <div id="toast">계좌번호가 복사되었습니다.</div>
-
+<div style="padding: 0 24px 40px; text-align: center;">
+      <button onclick="shareKakao()" style="background: #FEE500; color: #000; border: none; border-radius: 6px; padding: 15px 0; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: 'Pretendard', sans-serif;">
+        <svg viewBox="0 0 32 32" width="18" height="18"><path d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.32 6.64 5.76 8.48l-1.92 7.04c-.16.56.48.96.96.64l8.16-5.44c.56.08 1.12.08 1.68.08 6.96 0 12.64-4.48 12.64-10.08S22.96 4.64 16 4.64z" fill="#000"/></svg>
+        카카오톡으로 청첩장 보내기
+      </button>
+    </div>
+  
   <script>
     let isPlaying = false, introClosed = false;
     const bgm = document.getElementById('bgm-audio');
@@ -383,6 +389,42 @@
         const toast = document.getElementById('toast'); 
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+    }
+  </script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCmbV0X3SSz00h4CCmX5G2bQ2EaRizN3j+9JryH5t1KjHq4Z2Z/Z/uEwG5w3" crossorigin="anonymous"></script>
+  <script>
+    // 카카오 SDK 초기화
+    Kakao.init('a6c9b65da65b6eade0ca7baac41ac5e2');
+
+    function shareKakao() {
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '이성봉 ♥ 신예림 결혼합니다',
+          description: '2026. 10. 9. 소중한 분을 초대합니다',
+          imageUrl: 'https://sinbak01.github.io/yeahbong/images/main.jpg',
+          link: {
+            mobileWebUrl: 'https://sinbak01.github.io/yeahbong/',
+            webUrl: 'https://sinbak01.github.io/yeahbong/',
+          },
+        },
+        buttons: [
+          {
+            title: '청첩장 보기',
+            link: {
+              mobileWebUrl: 'https://sinbak01.github.io/yeahbong/',
+              webUrl: 'https://sinbak01.github.io/yeahbong/',
+            },
+          },
+          {
+            title: '네비게이션',
+            link: {
+              mobileWebUrl: 'https://map.kakao.com/link/search/더믹스드원 비엔날레',
+              webUrl: 'https://map.kakao.com/link/search/더믹스드원 비엔날레',
+            },
+          },
+        ],
       });
     }
   </script>
