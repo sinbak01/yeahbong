@@ -242,7 +242,6 @@
       </div>
     </section>
 
-    <!-- 💡 누락되었던 팝업 실행 버튼 추가 구간 -->
     <section class="section-box bg-white fade-section" style="padding-top: 0;">
       <button class="rsvp-btn-open" onclick="openRsvpModal()">참석 여부 전달하기 💌</button>
     </section>
@@ -294,7 +293,12 @@
       if(introClosed) return; introClosed = true;
       document.getElementById('intro-overlay').classList.add('fade-out');
       document.getElementById('main-content').classList.add('visible');
-      setTimeout(() => document.getElementById('intro-overlay').style.display = 'none', 1200);
+      
+      setTimeout(() => {
+        document.getElementById('intro-overlay').style.display = 'none';
+        openRsvpModal(); 
+      }, 1200);
+      
       bgm.play().then(() => { isPlaying = true; updateBgmIcon(); }).catch(e=>{});
     }
     setTimeout(() => { if(!introClosed) closeIntro(); }, 2800);
