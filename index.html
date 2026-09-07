@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>이성봉 ♥ 신예림 결혼합니다</title>
+  
   <meta property="og:type" content="website">
   <meta property="og:title" content="이성봉 ♥ 신예림 결혼합니다">
-  <meta property="og:description" content="2026. 10. 9. 더 믹스드원 비엔날레<br>소중한 분을 초대합니다">
+  <meta property="og:description" content="2026년 10월 9일 금요일 오후 12시 30분 더 믹스드원 비엔날레">
   <meta property="og:image" content="https://sinbak01.github.io/yeahbong/images/main.jpg">
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
@@ -62,6 +63,8 @@
 
     .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
     .gallery-item { width: 100%; aspect-ratio: 1/1; object-fit: cover; cursor: pointer; border-radius: 2px; }
+    
+    /* 갤러리 더보기 기능 CSS 추가 */
     .gallery-item.hidden { display: none; }
     .btn-more { display: inline-block; margin-top: 25px; padding: 10px 24px; border: 1px solid var(--border); border-radius: 20px; background: var(--bg-white); color: #555; font-size: 13.5px; cursor: pointer; transition: all 0.3s; font-family: "Pretendard", sans-serif; }
     .btn-more:active { background: #f2f0ea; }
@@ -75,6 +78,13 @@
     .modal-nav.right { right: 0; }
     .modal-close { position: absolute; top: 20px; right: 20px; color: rgba(255,255,255,0.8); font-size: 30px; cursor: pointer; z-index: 10003; padding: 10px; }
 
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 12px; font-size: 13.5px; text-align: center; margin: 25px auto 0; max-width: 300px; color: #555; }
+    .day.target { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; margin: 0 auto; font-weight: bold; }
+    .d-day-badge { display: inline-block; margin-top: 35px; padding: 10px 22px; border: 1px solid var(--border); border-radius: 30px; font-size: 14px; color: #555; font-weight: 500; }
+
+    .nav-btn-group { display: flex; justify-content: space-between; gap: 6px; margin-top: 15px; }
+    .nav-btn { flex: 1; padding: 10px 0; border: 1px solid var(--border); border-radius: 6px; text-decoration: none; color: #444; font-size: 12.5px; font-weight: 500; text-align: center; background: #fff; white-space: nowrap; }
+
     .acc-item { margin-bottom: 12px; }
     .acc-header { padding: 16px 20px; background: #f2f0ea; border-radius: 6px; font-weight: 500; font-size: 15px; color: #444; display: flex; justify-content: space-between; cursor: pointer; }
     .acc-content { display: none; padding: 20px; text-align: left; font-size: 14px; background: var(--bg-white); border: 1px solid #f2f0ea; border-top: none; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; }
@@ -86,18 +96,18 @@
     #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(40,40,40,0.9); color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 13.5px; opacity: 0; transition: opacity 0.3s; z-index: 10001; pointer-events: none; }
     #toast.show { opacity: 1; }
 
-    /* RSVP 팝업 (사이즈 축소 적용) */
+    /* 직접 입력형 RSVP 팝업 스타일 (정상적인 위치로 이동됨) */
     #rsvp-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10005; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
     #rsvp-modal.show { opacity: 1; visibility: visible; }
-    .rsvp-content { width: 85%; max-width: 320px; background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); text-align: left; position: relative; font-family: 'Pretendard', sans-serif; }
-    .rsvp-title { font-family: "Gowun Batang", serif; font-size: 17px; font-weight: 700; color: #333; margin-bottom: 6px; text-align: center; }
-    .rsvp-desc { font-size: 13px; color: #666; text-align: center; margin-bottom: 16px; line-height: 1.5; }
-    .rsvp-form-group { margin-bottom: 12px; }
-    .rsvp-form-group label { display: block; font-size: 12.5px; font-weight: 600; color: #444; margin-bottom: 5px; }
-    .rsvp-input, .rsvp-select { width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13.5px; font-family: 'Pretendard', sans-serif; }
-    .rsvp-submit-btn { background: #d27979; color: #fff; border: none; border-radius: 6px; padding: 12px 0; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 10px; font-family: 'Pretendard', sans-serif; }
-    .rsvp-close-btn { position: absolute; top: 12px; right: 15px; background: none; border: none; font-size: 20px; color: #999; cursor: pointer; }
-    .rsvp-btn-open { background: #d27979; color: #fff; border: none; border-radius: 6px; padding: 12px 0; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; margin-bottom: 15px; font-family: 'Pretendard', sans-serif; box-shadow: 0 2px 8px rgba(210,121,121,0.3); }
+    .rsvp-content { width: 90%; max-width: 360px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); text-align: left; position: relative; font-family: 'Pretendard', sans-serif; }
+    .rsvp-title { font-family: "Gowun Batang", serif; font-size: 18px; font-weight: 700; color: #333; margin-bottom: 6px; text-align: center; }
+    .rsvp-desc { font-size: 13px; color: #666; text-align: center; margin-bottom: 20px; line-height: 1.5; }
+    .rsvp-form-group { margin-bottom: 14px; }
+    .rsvp-form-group label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 5px; }
+    .rsvp-input, .rsvp-select { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; font-family: 'Pretendard', sans-serif; }
+    .rsvp-submit-btn { background: #d27979; color: #fff; border: none; border-radius: 6px; padding: 13px 0; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 10px; font-family: 'Pretendard', sans-serif; }
+    .rsvp-close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 20px; color: #999; cursor: pointer; }
+    .rsvp-btn-open { background: #d27979; color: #fff; border: none; border-radius: 6px; padding: 14px 0; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; margin-bottom: 15px; font-family: 'Pretendard', sans-serif; box-shadow: 0 2px 8px rgba(210,121,121,0.3); }
   </style>
 </head>
 <body>
@@ -132,27 +142,30 @@
       </div>
       <div class="cover-text">
         <h2>이성봉 ♡ 신예림</h2>
-        <p>2026년 10월 9일, 소중한 분을 초대합니다</p>
+        <p>2026. 10. 09. FRI PM 12:30</p>
       </div>
     </div>
 
     <section class="section-box bg-beige fade-section">
-      <div class="sec-title">초대의 글</div>
+      <div class="sec-title">우리, 결혼합니다</div>
+      
       <div class="poem">
         그래, 내가 낮은 곳에 있겠다는 건<br>너를 위해 나를 온전히 비우겠다는 뜻이다<br><br>
         나의 존재마저 너에게 흠뻑 주고 싶다는 뜻이다<br><br>
         잠겨 죽어도 좋으니<br>너는<br>물처럼 내게 밀려오라<br>
         <div style="margin-top:15px; color:#888; font-size:13px;">이정하, ‘낮은 곳으로’</div>
       </div>
+      
       <div class="invite-text">
-        나란히 놓여 같은 방향으로<br>끝없이 뻗어가는 두 줄기 철길처럼,<br>저희 두 사람도 같은 곳을 바라보며<br>평생을 함께 걷고자 합니다.<br><br>
+        나란히 놓여 같은 방향으로<br>끝없이 뻗어가는 두 줄기 철길처럼,<br>
+        저희 두 사람도 같은 곳을 바라보며<br>평생을 함께 걷고자 합니다.<br><br>
         서로에게 가장 든든한 동반자이자<br>인생의 가장 아늑한 종착역이 되어<br>곁을 지키겠습니다.<br><br>
-        귀한 걸음 하시어 저희의 새 출발을<br>따뜻한 마음으로 축복해 주시면 감사하겠습니다.
+        저희의 출발선에 함께 서서<br>따뜻한 축복을 보내주세요.
       </div>
     </section>
 
     <section class="section-box bg-white fade-section">
-      <div class="sec-title">신랑 & 신부</div>
+      <div class="sec-title">신랑 & 신부 소개</div>
       <div class="family-tree">
         이시형 · 김현영<span>의 아들</span><strong>성봉</strong><br>
         신대왕 · 신진희<span>의 딸</span><strong>예림</strong>
@@ -188,23 +201,49 @@
       <button class="btn-more" id="btn-more" onclick="showMorePhotos()">사진 더보기 ▾</button>
     </section>
 
-    <!-- 오시는 길 섹션 -->
-    <section id="location" class="section-box bg-white fade-section">
-      <div class="sec-title">오시는 길</div>
-      <p style="font-size:15px; color:#333; font-weight:600; margin-bottom:10px;">더믹스드원 비엔날레</p>
-      <p style="font-size:13.5px; color:var(--text-sub); margin-bottom:20px;">광주광역시 북구 비엔날레로 111</p>
+    <section class="section-box bg-white fade-section">
+      <div class="sec-title">예식 일시</div>
+      <p style="font-size: 15px; color: #444;"><strong>2026. 10. 09. 금요일 오후 12:30</strong></p>
       
-      <div style="width:100%; height:250px; background:#f2f0ea; border-radius:6px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; color:#999; font-size:13px;">
-        (지도 이미지가 들어가는 곳)
+      <div class="calendar-grid">
+        <div style="color:var(--accent)">일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+        <div></div><div></div><div></div><div></div>
+        <div>1</div><div>2</div><div>3</div>
+        <div style="color:var(--accent)">4</div><div>5</div><div>6</div><div>7</div><div>8</div><div class="day target">9</div><div>10</div>
+        <div style="color:var(--accent)">11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div>
+        <div style="color:var(--accent)">18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div>
+        <div style="color:var(--accent)">25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div>
+      </div>
+      
+      <div class="d-day-badge" id="d-day-text">D-Day 계산 중...</div>
+    </section>
+
+    <section id="location" class="section-box bg-beige fade-section">
+      <div class="sec-title">오시는 길</div>
+      
+      <div style="margin-bottom: 20px; border-radius: 8px; overflow: hidden; width: 100%; height: 250px; border: 1px solid var(--border);">
+        <iframe width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen src="https://maps.google.com/maps?q=광주%20북구%20북문대로%2042&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>
+      </div>
+
+      <div style="text-align:left; background:var(--bg-white); padding:20px; border-radius:8px; font-size:14.5px; border: 1px solid var(--border);">
+        <strong style="font-size:16px; color:#333;">더믹스드원 비엔날레</strong><br>
+        <span style="color:#666; font-size:13.5px;">전남광주통합특별시 북구 북문대로 42,<br>현대빌딩 9층 (운암동)</span>
+        
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed #e5e5e5; font-size: 13.5px; color: #555;">
+          <strong style="color:#333;">🚗 주차 안내</strong><br>
+          건물 내 전용 주차장 이용 가능 (무료 주차 지원)
+        </div>
+      </div>
+      
+      <div class="nav-btn-group">
+        <a href="https://map.kakao.com/link/search/더믹스드원 비엔날레" target="_blank" class="nav-btn">카카오맵</a>
+        <a href="tmap://search?name=더믹스드원 비엔날레" class="nav-btn">티맵</a>
+        <a href="https://map.naver.com/v5/search/더믹스드원 비엔날레" target="_blank" class="nav-btn">네이버지도</a>
       </div>
     </section>
 
-    <!-- 참석 여부 전달 섹션 -->
-    <section class="section-box bg-beige fade-section" style="padding: 40px 24px;">
-      <div class="sec-title">참석 여부 전달</div>
-      <p style="font-size: 13.5px; color: var(--text-sub); margin-bottom: 20px; line-height: 1.6;">
-        원활한 예식 준비를 위해<br>참석 여부를 미리 알려주시면 감사하겠습니다.
-      </p>
+    <!-- 💡 누락되었던 팝업 실행 버튼 추가 구간 -->
+    <section class="section-box bg-white fade-section" style="padding-top: 0;">
       <button class="rsvp-btn-open" onclick="openRsvpModal()">참석 여부 전달하기 💌</button>
     </section>
 
@@ -237,8 +276,6 @@
         </div>
       </div>
     </section>
-
-    <!-- 카카오톡 공유 버튼 -->
     <div style="padding: 0 24px 40px; text-align: center;">
       <button onclick="shareKakao()" style="background: #FEE500; color: #000; border: none; border-radius: 6px; padding: 15px 0; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: 'Pretendard', sans-serif;">
         <svg viewBox="0 0 32 32" width="18" height="18"><path d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.32 6.64 5.76 8.48l-1.92 7.04c-.16.56.48.96.96.64l8.16-5.44c.56.08 1.12.08 1.68.08 6.96 0 12.64-4.48 12.64-10.08S22.96 4.64 16 4.64z" fill="#000"/></svg>
@@ -246,11 +283,181 @@
       </button>
     </div>
 
-  </div> <!-- 메인 박스 끝 -->
-
+  </div>
   <div id="toast">계좌번호가 복사되었습니다.</div>
-  
-  <!-- 참석 여부 직접 입력 팝업창 -->
+
+  <script>
+    let isPlaying = false, introClosed = false;
+    const bgm = document.getElementById('bgm-audio');
+    
+    function closeIntro() {
+      if(introClosed) return; introClosed = true;
+      document.getElementById('intro-overlay').classList.add('fade-out');
+      document.getElementById('main-content').classList.add('visible');
+      setTimeout(() => document.getElementById('intro-overlay').style.display = 'none', 1200);
+      bgm.play().then(() => { isPlaying = true; updateBgmIcon(); }).catch(e=>{});
+    }
+    setTimeout(() => { if(!introClosed) closeIntro(); }, 2800);
+    
+    function toggleBGM() {
+      if(isPlaying) { bgm.pause(); isPlaying = false; } else { bgm.play(); isPlaying = true; }
+      updateBgmIcon();
+    }
+    function updateBgmIcon() {
+      document.getElementById('icon-sound').style.display = isPlaying ? 'block' : 'none';
+      document.getElementById('icon-mute').style.display = isPlaying ? 'none' : 'block';
+    }
+
+    /* 스크롤 페이드인 효과 */
+    document.addEventListener("DOMContentLoaded", function() {
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.fade-section').forEach(section => {
+        observer.observe(section);
+      });
+      
+      calculateDDay();
+    });
+
+    /* D-Day 계산기 */
+    function calculateDDay() {
+      const weddingDate = new Date('2026-10-09T12:30:00');
+      const now = new Date();
+      const diffTime = weddingDate - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      const dDayBadge = document.getElementById('d-day-text');
+      if (diffDays > 0) {
+        dDayBadge.innerText = `결혼식까지 ${diffDays}일 남았습니다 💍`;
+      } else if (diffDays === 0) {
+        dDayBadge.innerText = `오늘이 바로 결혼식 날입니다 🎉`;
+      } else {
+        dDayBadge.innerText = `결혼한 지 ${Math.abs(diffDays)}일째 💐`;
+      }
+    }
+
+    /* 갤러리 */
+    const images = [
+      "./images/photo1.jpg",
+      "./images/photo2.jpg",
+      "./images/photo3.jpg",
+      "./images/photo4.jpg",
+      "./images/photo5.jpg",
+      "./images/photo6.jpg",
+      "./images/photo7.jpg",
+      "./images/photo8.jpg",
+      "./images/photo9.jpg",
+      "./images/photo10.jpg",
+      "./images/photo11.jpg",
+      "./images/photo12.jpg",
+      "./images/photo13.jpg",
+      "./images/photo14.jpg",
+      "./images/photo15.jpg",
+      "./images/photo16.jpg",
+      "./images/photo17.jpg",
+      "./images/photo18.jpg",
+      "./images/photo19.jpg",
+      "./images/photo20.jpg",
+      "./images/photo21.jpg"
+    ];
+    let currentIndex = 0;
+
+    function openModal(index) { 
+      currentIndex = index;
+      document.getElementById('modal-img').src = images[currentIndex]; 
+      document.getElementById('gallery-modal').classList.add('show'); 
+    }
+    function closeModal(e) { 
+      if(e && e.target !== document.getElementById('gallery-modal') && !e.target.classList.contains('modal-close')) return;
+      document.getElementById('gallery-modal').classList.remove('show'); 
+    }
+    function moveImg(step, e) {
+      if(e) e.stopPropagation();
+      currentIndex = (currentIndex + step + images.length) % images.length;
+      document.getElementById('modal-img').src = images[currentIndex];
+    }
+    
+    /* 갤러리 더보기 함수 추가 */
+    function showMorePhotos() {
+      const hiddenPhotos = document.querySelectorAll('.gallery-item.hidden');
+      hiddenPhotos.forEach(img => {
+        img.classList.remove('hidden');
+      });
+      document.getElementById('btn-more').style.display = 'none'; // 버튼 숨기기
+    }
+
+    /* 아코디언 및 복사 */
+    function toggleAccordion(type) {
+      const content = document.getElementById(`content-${type}`);
+      const arrow = document.getElementById(`arrow-${type}`);
+      if(content.classList.contains('open')) { 
+        content.classList.remove('open'); arrow.innerText = '▼'; 
+      } else { 
+        content.classList.add('open'); arrow.innerText = '▲'; 
+      }
+    }
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast'); 
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+    }
+  </script>
+ <!-- 카카오 SDK 및 공유 기능 스크립트 -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"></script>
+  <script>
+    function shareKakao() {
+      try {
+        if (!window.Kakao) {
+          alert('카카오톡 기능을 불러오지 못했습니다. 브라우저를 새로고침 해주세요.');
+          return;
+        }
+        if (!Kakao.isInitialized()) {
+          Kakao.init('a6c9b65da65b6eade0ca7baac41ac5e2');
+        }
+        
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: '이성봉 ♥ 신예림 결혼합니다',
+            description: '2026. 10. 9. 더 믹스드원 비엔날레',
+            imageUrl: 'https://sinbak01.github.io/yeahbong/images/main.jpg',
+            link: {
+              mobileWebUrl: 'https://sinbak01.github.io/yeahbong/',
+              webUrl: 'https://sinbak01.github.io/yeahbong/',
+            },
+          },
+          buttons: [
+            {
+              title: '청첩장 보기',
+              link: {
+                mobileWebUrl: 'https://sinbak01.github.io/yeahbong/',
+                webUrl: 'https://sinbak01.github.io/yeahbong/',
+              },
+            },
+            {
+              title: '지도 보기',
+              link: {
+                mobileWebUrl: 'https://sinbak01.github.io/yeahbong/#location',
+                webUrl: 'https://sinbak01.github.io/yeahbong/#location',
+              },
+            },
+          ],
+        });
+      } catch (error) {
+        alert('카카오 공유 에러: ' + error.message);
+      }
+    }
+  </script>
+  <!-- 직접 입력형 참석 여부 팝업창 -->
   <div id="rsvp-modal" onclick="closeRsvpModal(event)">
     <div class="rsvp-content" onclick="event.stopPropagation()">
       <button class="rsvp-close-btn" onclick="closeRsvpModal()">✕</button>
@@ -291,100 +498,13 @@
   </div>
 
   <script>
-    let isPlaying = false, introClosed = false;
-    const bgm = document.getElementById('bgm-audio');
-    
-    function closeIntro() {
-      if(introClosed) return; introClosed = true;
-      document.getElementById('intro-overlay').classList.add('fade-out');
-      document.getElementById('main-content').classList.add('visible');
-      setTimeout(() => document.getElementById('intro-overlay').style.display = 'none', 1200);
-      bgm.play().then(() => { isPlaying = true; updateBgmIcon(); }).catch(e=>{});
-    }
-    setTimeout(() => { if(!introClosed) closeIntro(); }, 2800);
-    
-    function toggleBGM() {
-      if(isPlaying) { bgm.pause(); isPlaying = false; } else { bgm.play(); isPlaying = true; }
-      updateBgmIcon();
-    }
-    function updateBgmIcon() {
-      document.getElementById('icon-sound').style.display = isPlaying ? 'block' : 'none';
-      document.getElementById('icon-mute').style.display = isPlaying ? 'none' : 'block';
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
-
-      document.querySelectorAll('.fade-section').forEach(section => {
-        observer.observe(section);
-      });
-    });
-
-    const images = [
-      "./images/photo1.jpg", "./images/photo2.jpg", "./images/photo3.jpg",
-      "./images/photo4.jpg", "./images/photo5.jpg", "./images/photo6.jpg",
-      "./images/photo7.jpg", "./images/photo8.jpg", "./images/photo9.jpg",
-      "./images/photo10.jpg", "./images/photo11.jpg", "./images/photo12.jpg",
-      "./images/photo13.jpg", "./images/photo14.jpg", "./images/photo15.jpg",
-      "./images/photo16.jpg", "./images/photo17.jpg", "./images/photo18.jpg",
-      "./images/photo19.jpg", "./images/photo20.jpg", "./images/photo21.jpg"
-    ];
-    let currentIndex = 0;
-
-    function openModal(index) { 
-      currentIndex = index;
-      document.getElementById('modal-img').src = images[currentIndex]; 
-      document.getElementById('gallery-modal').classList.add('show'); 
-    }
-    function closeModal(e) { 
-      if(e && e.target !== document.getElementById('gallery-modal') && !e.target.classList.contains('modal-close')) return;
-      document.getElementById('gallery-modal').classList.remove('show'); 
-    }
-    function moveImg(step, e) {
-      if(e) e.stopPropagation();
-      currentIndex = (currentIndex + step + images.length) % images.length;
-      document.getElementById('modal-img').src = images[currentIndex];
-    }
-    
-    function showMorePhotos() {
-      const hiddenPhotos = document.querySelectorAll('.gallery-item.hidden');
-      hiddenPhotos.forEach(img => {
-        img.classList.remove('hidden');
-      });
-      document.getElementById('btn-more').style.display = 'none';
-    }
-
-    function toggleAccordion(type) {
-      const content = document.getElementById(`content-${type}`);
-      const arrow = document.getElementById(`arrow-${type}`);
-      if(content.classList.contains('open')) { 
-        content.classList.remove('open'); arrow.innerText = '▼'; 
-      } else { 
-        content.classList.add('open'); arrow.innerText = '▲'; 
-      }
-    }
-    function copyText(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        const toast = document.getElementById('toast'); 
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
-      });
-    }
-
     function openRsvpModal() {
       document.getElementById('rsvp-modal').classList.add('show');
     }
-    function closeRsvpModal(e) {
-      if(e && e.target !== document.getElementById('rsvp-modal') && !e.target.classList.contains('rsvp-close-btn')) return;
+    function closeRsvpModal() {
       document.getElementById('rsvp-modal').classList.remove('show');
     }
+
     function submitRsvp(event) {
       event.preventDefault();
       
@@ -399,8 +519,7 @@
         companion: document.getElementById('rsvp-companion').value
       };
 
-      // 🚨 구글 웹 앱 URL로 반드시 변경하세요!
-      const scriptURL = 'YOUR_GOOGLE_WEB_APP_URL_HERE'; 
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbytcWTr2yjhTAYbFRdZhGSAkWDH11s565_Y4GMfMs6zEXsEtI6gYdR3WoaO5pI1NTeoww/exec';
 
       fetch(scriptURL, {
         method: 'POST',
@@ -413,60 +532,13 @@
         document.getElementById('rsvp-form').reset();
         btn.innerText = '제출하기';
         btn.disabled = false;
-        document.getElementById('rsvp-modal').classList.remove('show');
+        closeRsvpModal();
       })
       .catch(error => {
         alert('전송 중 오류가 발생했습니다. 다시 시도해 주세요.');
         btn.innerText = '제출하기';
         btn.disabled = false;
       });
-    }
-  </script>
-
-  <!-- 카카오 SDK 및 공유 기능 스크립트 -->
-  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"></script>
-  <script>
-    function shareKakao() {
-      try {
-        if (!window.Kakao) {
-          alert('카카오톡 기능을 불러오지 못했습니다. 브라우저를 새로고침 해주세요.');
-          return;
-        }
-        if (!Kakao.isInitialized()) {
-          Kakao.init('a6c9b65da65b6eade0ca7baac41ac5e2');
-        }
-        
-        Kakao.Share.sendDefault({
-          objectType: 'feed',
-          content: {
-            title: '이성봉 ♥ 신예림 결혼합니다',
-            description: '2026. 10. 9. 더 믹스드원 비엔날레<br>소중한 분을 초대합니다',
-            imageUrl: 'https://sinbak01.github.io/yeahbong/images/main.jpg',
-            link: {
-              mobileWebUrl: 'https://sinbak01.github.io/yeahbong/',
-              webUrl: 'https://sinbak01.github.io/yeahbong/',
-            },
-          },
-          buttons: [
-            {
-              title: '청첩장 보기',
-              link: {
-                mobileWebUrl: 'https://sinbak01.github.io/yeahbong/',
-                webUrl: 'https://sinbak01.github.io/yeahbong/',
-              },
-            },
-            {
-              title: '지도 보기',
-              link: {
-                mobileWebUrl: 'https://sinbak01.github.io/yeahbong/#location',
-                webUrl: 'https://sinbak01.github.io/yeahbong/#location',
-              },
-            },
-          ],
-        });
-      } catch (error) {
-        alert('카카오 공유 에러: ' + error.message);
-      }
     }
   </script>
 </body>
