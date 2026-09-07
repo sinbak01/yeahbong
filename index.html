@@ -9,12 +9,96 @@
   <meta property="og:description" content="2026. 10. 9. 소중한 분을 초대합니다">
   <meta property="og:image" content="https://sinbak01.github.io/yeahbong/images/main.jpg">
   
-  <!-- 분리된 CSS 디자인 파일 연결 -->
-  <link rel="stylesheet" href="style.css">
-  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root { 
+      --bg-white: #ffffff; 
+      --bg-beige: #f9f8f5; 
+      --text-main: #333333; 
+      --text-sub: #777777; 
+      --accent: #d27979; 
+      --border: #e8e6e1; 
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Pretendard", sans-serif; background-color: #111; color: var(--text-main); display: flex; justify-content: center; line-height: 1.8; overflow-x: hidden; }
+    
+    #intro-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1.2s; cursor: pointer; }
+    #intro-overlay.fade-out { opacity: 0; visibility: hidden; }
+    .intro-bg-img { position: absolute; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.75); }
+    .intro-text-box { position: relative; z-index: 2; color: #fff; text-align: center; }
+    .intro-title { font-size: 32px; font-family: "Gowun Batang", serif; margin: 12px 0; font-weight: 700; }
+    .bgm-btn { position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(255,255,255,0.85); border: 1px solid var(--border); border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .bgm-btn svg { width: 18px; height: 18px; fill: #8a7d6d; }
+    
+    .app-container { width: 100%; max-width: 440px; background: var(--bg-white); min-height: 100vh; padding-bottom: 80px; opacity: 0; transform: translateY(15px); transition: opacity 1.2s, transform 1.2s; }
+    .app-container.visible { opacity: 1; transform: translateY(0); }
+    
+    .fade-section { opacity: 0; transform: translateY(30px); transition: opacity 1s ease-out, transform 1s ease-out; }
+    .fade-section.fade-in { opacity: 1; transform: translateY(0); }
+    
+    .section-box { padding: 60px 24px; text-align: center; }
+    .bg-white { background-color: var(--bg-white); }
+    .bg-beige { background-color: var(--bg-beige); }
+
+    .sec-title { font-family: "Gowun Batang", serif; font-size: 19px; font-weight: 700; color: #555; margin-bottom: 25px; }
+
+    .cover-wrap { position: relative; background: var(--bg-white); padding-bottom: 30px; }
+    .cover-img-box { position: relative; width: 100%; height: 60vh; overflow: hidden; }
+    .cover-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .cover-gradient { position: absolute; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); }
+    .cover-text { position: relative; margin-top: -20px; z-index: 2; text-align: center; }
+    .cover-text h2 { font-family: "Gowun Batang", serif; font-size: 26px; font-weight: 700; color: #444; margin-bottom: 8px; }
+    .cover-text p { font-size: 14.5px; color: var(--text-sub); letter-spacing: 0.5px; }
+
+    .poem { font-family: "Nanum Myeongjo", serif; font-size: 14px; line-height: 2.2; color: #444; margin-bottom: 25px; }
+    .invite-text { font-size: 14.5px; line-height: 2.1; word-break: keep-all; color: #444; }
+    
+    .family-tree { display: inline-block; text-align: left; font-size: 15px; line-height: 2.4; color: #333; }
+    .family-tree span { color: var(--text-sub); font-size: 13.5px; margin: 0 6px; }
+    .family-tree strong { font-size: 16px; margin-left: 4px; }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+    .gallery-item { width: 100%; aspect-ratio: 1/1; object-fit: cover; cursor: pointer; border-radius: 2px; }
+    .gallery-item.hidden { display: none; }
+    .btn-more { display: inline-block; margin-top: 25px; padding: 10px 24px; border: 1px solid var(--border); border-radius: 20px; background: var(--bg-white); color: #555; font-size: 13.5px; cursor: pointer; transition: all 0.3s; font-family: "Pretendard", sans-serif; }
+    .btn-more:active { background: #f2f0ea; }
+
+    #gallery-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10002; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+    #gallery-modal.show { opacity: 1; visibility: visible; }
+    #modal-img { max-width: 95%; max-height: 85vh; object-fit: contain; }
+    .modal-nav { position: absolute; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.8); font-size: 40px; cursor: pointer; padding: 20px; user-select: none; z-index: 10003; }
+    .modal-nav:active { color: white; }
+    .modal-nav.left { left: 0; }
+    .modal-nav.right { right: 0; }
+    .modal-close { position: absolute; top: 20px; right: 20px; color: rgba(255,255,255,0.8); font-size: 30px; cursor: pointer; z-index: 10003; padding: 10px; }
+
+    .acc-item { margin-bottom: 12px; }
+    .acc-header { padding: 16px 20px; background: #f2f0ea; border-radius: 6px; font-weight: 500; font-size: 15px; color: #444; display: flex; justify-content: space-between; cursor: pointer; }
+    .acc-content { display: none; padding: 20px; text-align: left; font-size: 14px; background: var(--bg-white); border: 1px solid #f2f0ea; border-top: none; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; }
+    .acc-content.open { display: block; }
+    .acc-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px dashed var(--border); }
+    .acc-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .btn-copy { border: 1px solid #ddd; background: #faf9f6; padding: 6px 14px; border-radius: 4px; font-size: 12px; color: #555; cursor: pointer; }
+
+    #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(40,40,40,0.9); color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 13.5px; opacity: 0; transition: opacity 0.3s; z-index: 10001; pointer-events: none; }
+    #toast.show { opacity: 1; }
+
+    /* RSVP 팝업 (사이즈 축소 적용) */
+    #rsvp-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10005; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+    #rsvp-modal.show { opacity: 1; visibility: visible; }
+    .rsvp-content { width: 85%; max-width: 320px; background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); text-align: left; position: relative; font-family: 'Pretendard', sans-serif; }
+    .rsvp-title { font-family: "Gowun Batang", serif; font-size: 17px; font-weight: 700; color: #333; margin-bottom: 6px; text-align: center; }
+    .rsvp-desc { font-size: 13px; color: #666; text-align: center; margin-bottom: 16px; line-height: 1.5; }
+    .rsvp-form-group { margin-bottom: 12px; }
+    .rsvp-form-group label { display: block; font-size: 12.5px; font-weight: 600; color: #444; margin-bottom: 5px; }
+    .rsvp-input, .rsvp-select { width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13.5px; font-family: 'Pretendard', sans-serif; }
+    .rsvp-submit-btn { background: #d27979; color: #fff; border: none; border-radius: 6px; padding: 12px 0; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 10px; font-family: 'Pretendard', sans-serif; }
+    .rsvp-close-btn { position: absolute; top: 12px; right: 15px; background: none; border: none; font-size: 20px; color: #999; cursor: pointer; }
+    .rsvp-btn-open { background: #d27979; color: #fff; border: none; border-radius: 6px; padding: 12px 0; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; margin-bottom: 15px; font-family: 'Pretendard', sans-serif; box-shadow: 0 2px 8px rgba(210,121,121,0.3); }
+  </style>
 </head>
 <body>
   <div id="intro-overlay" onclick="closeIntro()">
@@ -104,13 +188,12 @@
       <button class="btn-more" id="btn-more" onclick="showMorePhotos()">사진 더보기 ▾</button>
     </section>
 
-    <!-- 오시는 길 섹션 (카카오톡 '지도 보기' 누르면 여기로 이동) -->
+    <!-- 오시는 길 섹션 -->
     <section id="location" class="section-box bg-white fade-section">
       <div class="sec-title">오시는 길</div>
       <p style="font-size:15px; color:#333; font-weight:600; margin-bottom:10px;">더믹스드원 비엔날레</p>
       <p style="font-size:13.5px; color:var(--text-sub); margin-bottom:20px;">광주광역시 북구 비엔날레로 111</p>
       
-      <!-- 구글/네이버 지도 iframe 등 지도 넣는 영역 -->
       <div style="width:100%; height:250px; background:#f2f0ea; border-radius:6px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; color:#999; font-size:13px;">
         (지도 이미지가 들어가는 곳)
       </div>
@@ -208,7 +291,6 @@
   </div>
 
   <script>
-    /* BGM 및 인트로 로직 */
     let isPlaying = false, introClosed = false;
     const bgm = document.getElementById('bgm-audio');
     
@@ -230,7 +312,6 @@
       document.getElementById('icon-mute').style.display = isPlaying ? 'none' : 'block';
     }
 
-    /* 스크롤 페이드인 효과 */
     document.addEventListener("DOMContentLoaded", function() {
       const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -246,7 +327,6 @@
       });
     });
 
-    /* 갤러리 */
     const images = [
       "./images/photo1.jpg", "./images/photo2.jpg", "./images/photo3.jpg",
       "./images/photo4.jpg", "./images/photo5.jpg", "./images/photo6.jpg",
@@ -281,7 +361,6 @@
       document.getElementById('btn-more').style.display = 'none';
     }
 
-    /* 계좌번호 복사 및 아코디언 */
     function toggleAccordion(type) {
       const content = document.getElementById(`content-${type}`);
       const arrow = document.getElementById(`arrow-${type}`);
@@ -299,7 +378,6 @@
       });
     }
 
-    /* RSVP 팝업 제어 및 구글 시트 전송 */
     function openRsvpModal() {
       document.getElementById('rsvp-modal').classList.add('show');
     }
@@ -321,7 +399,7 @@
         companion: document.getElementById('rsvp-companion').value
       };
 
-      // 🚨 이 주소를 반드시 본인의 구글 웹 앱 URL로 변경하세요!
+      // 🚨 구글 웹 앱 URL로 반드시 변경하세요!
       const scriptURL = 'YOUR_GOOGLE_WEB_APP_URL_HERE'; 
 
       fetch(scriptURL, {
@@ -380,7 +458,6 @@
             {
               title: '지도 보기',
               link: {
-                // 오시는 길(#location)로 부드럽게 이동하여 오류 방지
                 mobileWebUrl: 'https://sinbak01.github.io/yeahbong/#location',
                 webUrl: 'https://sinbak01.github.io/yeahbong/#location',
               },
