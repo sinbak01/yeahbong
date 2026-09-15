@@ -199,7 +199,7 @@
         <div class="acc-content" id="content-groom">
           <div class="acc-row">
             <div><span style="font-size:12px; background:#f2f0ea; padding:3px 8px; border-radius:4px;">우리은행</span><br><strong style="color:#333;">1002-654-428840</strong><br><span style="color:#777; font-size:12px;">예금주: 이성봉</span></div>
-            <button class="btn-copy" onclick="copyText('576210267386')">복사</button>
+            <button class="btn-copy" onclick="copyText('1002654428840')">복사</button>
           </div>
         </div>
       </div>
@@ -208,8 +208,10 @@
         <div class="acc-content" id="content-bride">
           <div class="acc-row">
             <div><span style="font-size:12px; background:#f2f0ea; padding:3px 8px; border-radius:4px;">국민은행</span><br><strong style="color:#333;">772601-01-604509</strong><br><span style="color:#777; font-size:12px;">예금주: 신예림</span></div>
-            <button class="btn-copy" onclick="copyText('9002183836264')">복사</button>
+            <button class="btn-copy" onclick="copyText('77260101604509')">복사</button>
           </div>
+        </div>
+      </div>
     </section>
 
     <!-- 카카오톡 공유 버튼 -->
@@ -314,6 +316,10 @@
         setTimeout(() => toast.classList.remove('show'), 2000);
       });
     }
+  </script>
+
+  <!-- 카카오 SDK -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"></script>
   <script>
     function shareKakao() {
       try {
@@ -325,7 +331,7 @@
           Kakao.init('a6c9b65da65b6eade0ca7baac41ac5e2');
         }
         
-        // 현재 브라우저에 표시된 주소를 자동으로 가져옵니다 (예: friends.html 등)
+        // 현재 브라우저 주소를 동적으로 가져와서 공유합니다.
         const currentUrl = window.location.href;
 
         Kakao.Share.sendDefault({
