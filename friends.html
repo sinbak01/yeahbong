@@ -314,10 +314,6 @@
         setTimeout(() => toast.classList.remove('show'), 2000);
       });
     }
-  </script>
-
-  <!-- 카카오 SDK -->
-  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"></script>
   <script>
     function shareKakao() {
       try {
@@ -329,6 +325,9 @@
           Kakao.init('a6c9b65da65b6eade0ca7baac41ac5e2');
         }
         
+        // 현재 브라우저에 표시된 주소를 자동으로 가져옵니다 (예: friends.html 등)
+        const currentUrl = window.location.href;
+
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
@@ -336,16 +335,16 @@
             description: '저희 두 사람의 출발을 마음으로 축복해 주세요.',
             imageUrl: 'https://sinbak01.github.io/yeahbong/images/main.jpg',
             link: {
-              mobileWebUrl: 'https://sinbak01.github.io/yeahbong/parents.html',
-              webUrl: 'https://sinbak01.github.io/yeahbong/parents.html',
+              mobileWebUrl: currentUrl,
+              webUrl: currentUrl,
             },
           },
           buttons: [
             {
               title: '인사장 보기',
               link: {
-                mobileWebUrl: 'https://sinbak01.github.io/yeahbong/parents.html',
-                webUrl: 'https://sinbak01.github.io/yeahbong/parents.html',
+                mobileWebUrl: currentUrl,
+                webUrl: currentUrl,
               },
             }
           ],
